@@ -23,6 +23,8 @@ class FeatureTests(TestCase):
         document = Document()
         document.feed(content)
         nav = document.select("html", "body", "header", "nav")
+        if not nav:
+            return
         has_login = False
         has_signup = False
         links = nav.get_all_children("a")

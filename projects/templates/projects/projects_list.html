@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-</head>
-
-<body>
-    <main>
-        <div>
-            <h1>My Projects</h1>
-            <p>
-                <a href="{% url 'create_project' %}">Create a new project</a>
-            </p>
-            {% if not projects %}
+{% block title %}Project List{% endblock %}
+{% block content %}
+    <div>
+        <h1>My Projects</h1>
+        <p>
+            <a href="{% url 'create_project' %}">Create a new project</a>
+        </p>
+        {% if not projects %}
             <p>You are not assigned to any projects</p>
-            {% else %}
+        {% else %}
             <table>
                 <thead>
                     <tr>
@@ -26,16 +19,15 @@
                 </thead>
                 <tbody>
                     {% for project in projects %}
-                    <tr>
-                        <td><a href="{% url 'show_project' project.id %}"></a>{{ project.name }}</td>
-                        <td>{{ project.tasks.all|length }}</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{% url 'show_project' project.id %}">{{ project.name }}</a>
+                            </td>
+                            <td>{{ project.tasks.all|length }}</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
-        </div>
-    </main>
-</body>
-
-</html>
+        {% endif %}
+    </div>
+{% endblock %}
